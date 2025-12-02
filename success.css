@@ -1,0 +1,94 @@
+/* --- Global Variables --- */
+:root {
+    --primary-color: #007bff; /* น้ำเงินหลัก */
+    --primary-hover: #0056b3;
+    --success-color: #28a745; /* เขียวสำหรับสำเร็จ */
+    --background-light: #f4f4f9;
+    --text-dark: #333;
+    --text-medium: #666;
+    --card-bg: #ffffff;
+    --shadow-subtle: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Base Layout --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* --- Success Card Container --- */
+.success-container {
+    background-color: var(--card-bg);
+    padding: 50px 70px; /* เพิ่ม Padding ให้มีพื้นที่หายใจ */
+    border-radius: 15px; /* เพิ่มความโค้งมน */
+    box-shadow: var(--shadow-subtle); /* เงาที่ดูนุ่มนวลขึ้น */
+    text-align: center;
+    max-width: 450px; /* เพิ่มความกว้างเล็กน้อย */
+    width: 90%;
+    /* เพิ่ม Animation เพื่อให้ดูดึงดูด */
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* --- Icon (เครื่องหมายถูก) --- */
+.icon {
+    color: var(--success-color); 
+    font-size: 90px; /* ขยายขนาดไอคอน */
+    margin-bottom: 25px;
+    /* เพิ่ม Animation เด้งเล็กน้อย */
+    animation: iconBounce 0.6s ease-out;
+    display: block; /* ใช้อ้างอิงถึงเครื่องหมายถูก Unicode (✔) */
+    line-height: 1;
+}
+
+/* --- Header Text --- */
+h1 {
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    font-size: 32px; /* ขยายขนาดหัวข้อ */
+    font-weight: 700;
+}
+
+/* --- Paragraph Text --- */
+p {
+    color: var(--text-medium);
+    margin-bottom: 40px; /* เพิ่มระยะห่างก่อนปุ่ม */
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* --- Home Button --- */
+.home-button {
+    background-color: var(--primary-color); 
+    color: white;
+    padding: 14px 30px; /* ขยายขนาดปุ่ม */
+    text-decoration: none; 
+    border-radius: 50px; /* ทำให้ปุ่มเป็นรูปเม็ดยา (Pill Shape) */
+    font-weight: 600;
+    font-size: 17px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-block; 
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* เพิ่มเงาให้ปุ่ม */
+}
+
+.home-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px); /* เอฟเฟกต์ยกขึ้น */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes iconBounce {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}

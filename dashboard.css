@@ -1,0 +1,568 @@
+/*
+ * =========================================================
+ * ธีมหลัก: Modern, Clean & Dual-Mode (Light/Dark)
+ * สำหรับหน้า: dashboard.html (หน้าแดชบอร์ด/รายงาน)
+ * =========================================================
+ */
+
+/* --- 0. Global Variables (Light Mode) --- */
+:root {
+    --primary-color: #007bff; /* สีน้ำเงินหลัก */
+    --primary-hover: #0056b3; 
+    --success-color: #28a745; /* สีเขียว */
+    --warning-color: #ffc107; /* สีเหลือง/เตือน */
+    --danger-color: #dc3545; /* สีแดง */
+    --info-color: #17a2b8; /* สีฟ้า/ข้อมูล */
+    
+    --text-dark: #343a40; /* สีข้อความหลัก */
+    --text-light: #ffffff; /* สีข้อความสำหรับพื้นหลังเข้ม */
+    --text-muted: #6c757d; /* สีข้อความรอง */
+    --background-light: #f4f7f9; /* สีพื้นหลังโดยรวม */
+    --card-bg: #ffffff; /* สีพื้นหลังกล่องข้อมูล/การ์ด */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e9ecef;
+    --border-color: #dee2e6;
+    --input-bg: #f8f9fa;
+    --menu-active-bg: #e2f0ff; 
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05); /* เงาสำหรับกล่อง */
+}
+
+/* --- 0. Global Variables (Dark Mode Override) --- */
+body.dark-mode {
+    --primary-color: #4da6ff;
+    --primary-hover: #1e88e5;
+    --success-color: #4cd964;
+    --warning-color: #ffcc00;
+    --danger-color: #ff6b6b;
+    --info-color: #6edff6;
+    
+    --text-dark: #f8f9fa;
+    --text-light: #121212;
+    --text-muted: #adb5bd;
+    --background-light: #121212;
+    --card-bg: #1e1e1e; 
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #343a40;
+    --border-color: #495057;
+    --input-bg: #2d2d2d;
+    --menu-active-bg: #293848;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 1. Base Structure & Layout --- */
+/* ----------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sukhumvit Set', 'Kanit', 'Prompt', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    display: flex;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-light);
+}
+
+.logo {
+    text-align: center;
+    padding: 0 10px 20px 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--sidebar-border);
+}
+
+.logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.menu {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.menu-item {
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.menu-item a i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    color: var(--primary-color); 
+}
+
+.menu-item:hover:not(.active) a {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.menu-item.active {
+    background-color: var(--menu-active-bg);
+}
+
+.menu-item.active a {
+    color: var(--primary-hover); 
+    font-weight: 700;
+}
+
+.menu-item.active a i {
+    color: var(--primary-hover);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 2. Main Content & Header --- */
+/* ----------------------------------------------------------------- */
+
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px; 
+    padding: 40px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color); /* ใช้ border-bottom เหมือน h1 ปกติ */
+    padding-bottom: 10px;
+}
+
+.dashboard-header h1 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin: 0; 
+    /* ลบ border-bottom เดิมออกเพราะย้ายไปที่ dashboard-header แล้ว */
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.dashboard-header h1 i {
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+/* --- Theme Toggle Button --- */
+.btn-theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    background-color: var(--card-bg);
+}
+
+.btn-theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+.btn-theme-toggle i {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 3. Grid Layout (Bootstrap Grid Sim) --- */
+/* ----------------------------------------------------------------- */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px; /* ชดเชย padding ของ col */
+    margin-bottom: 30px;
+}
+
+/* Basic column definitions (Responsive-like) */
+.col-12 { flex: 0 0 100%; max-width: 100%; padding: 0 15px; }
+.col-md-6 { flex: 0 0 50%; max-width: 50%; padding: 0 15px; }
+.col-lg-3 { flex: 0 0 25%; max-width: 25%; padding: 0 15px; }
+.col-md-3 { flex: 0 0 25%; max-width: 25%; padding: 0 15px; } /* เพิ่มมาเผื่อ */
+
+
+/* ----------------------------------------------------------------- */
+/* --- 4. KPI Cards (Key Performance Indicators) --- */
+/* ----------------------------------------------------------------- */
+
+.kpi-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    color: var(--text-light); /* ข้อความสีขาวสำหรับพื้นหลังสี */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%; /* ให้ยืดเต็มความสูงในแถว */
+}
+
+/* Background Colors */
+.kpi-card.bg-primary { background-color: var(--primary-color); }
+.kpi-card.bg-success { background-color: var(--success-color); }
+.kpi-card.bg-warning { background-color: var(--warning-color); }
+.kpi-card.bg-danger { background-color: var(--danger-color); }
+
+/* Text/Icon Styling */
+.kpi-card i {
+    opacity: 0.5; /* ไอคอนจาง ๆ */
+    align-self: flex-end; /* ไปอยู่มุมขวาบน */
+    margin-bottom: -10px; /* เลื่อนขึ้นเล็กน้อย */
+    font-size: 2.5rem !important;
+}
+
+.kpi-card h5 {
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.kpi-card .h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.kpi-card span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* แก้ไขสีข้อความสำหรับ KPI-Card สี Warning (สีเหลือง) */
+.kpi-card.bg-warning {
+    background-color: var(--warning-color);
+    color: var(--text-dark); /* ใช้สีเข้มเพื่อให้มองเห็นได้บนพื้นหลังสีเหลือง */
+}
+.kpi-card.bg-warning i {
+    color: var(--text-dark);
+    opacity: 0.5;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 5. Info Cards (สำหรับ Chart และ Report) --- */
+/* ----------------------------------------------------------------- */
+
+.card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+    height: 100%; /* ให้การ์ดสูงเท่ากันในแถวเดียวกัน */
+}
+
+.card-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.card-title i {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.text-muted {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* --- Report/Action Buttons --- */
+.btn-action-report,
+.btn-action-home {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-right: 15px; 
+}
+
+.btn-action-report {
+    background-color: var(--danger-color); /* สีแดงสำหรับ PDF */
+    color: var(--text-light);
+}
+.btn-action-report:hover {
+    background-color: #c82333;
+}
+
+.btn-action-home {
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+}
+.btn-action-home:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-action-report i,
+.btn-action-home i {
+    margin-right: 8px;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 6. Table Styles --- */
+/* ----------------------------------------------------------------- */
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.table thead th {
+    padding: 12px 15px;
+    background-color: var(--border-color);
+    color: var(--text-dark);
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+/* Stripe rows */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--input-bg); /* ใช้สีพื้นหลัง input เป็นแถบสลับ */
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* ไฮไลท์แถวเมื่อเมาส์ชี้ */
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 7. Modal Styling (Logout) --- */
+/* ----------------------------------------------------------------- */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--card-bg); 
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px; 
+    text-align: center;
+    box-shadow: var(--shadow-light); 
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px; 
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
+    flex: 1;
+    max-width: 120px;
+}
+
+.btn-danger-red {
+    background-color: var(--danger-color);
+    color: var(--text-light);
+}
+.btn-danger-red:hover {
+    background-color: #c82333;
+}
+
+.btn-primary-blue {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+.btn-primary-blue:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 8. Responsive Design --- */
+/* ----------------------------------------------------------------- */
+
+/* Tablet & Smaller Desktop (Max-width 992px) */
+@media (max-width: 992px) {
+    /* Sidebar Compact */
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar .logo img {
+        max-width: 50px;
+    }
+    .sidebar .menu-item a {
+        padding: 15px 10px;
+        justify-content: center;
+    }
+    .sidebar .menu-item a span {
+        display: none; /* ซ่อนข้อความ */
+    }
+    .sidebar .menu-item a i {
+        margin: 0;
+    }
+    .main-content {
+        margin-left: 80px;
+        padding: 20px;
+    }
+    
+    /* KPI Cards - เปลี่ยน 4 คอลัมน์เป็น 2 คอลัมน์ */
+    .col-lg-3 { 
+        flex: 0 0 50%; 
+        max-width: 50%; 
+        margin-bottom: 15px; /* เพิ่มระยะห่างด้านล่างเมื่อเปลี่ยนเป็น 2 แถว */
+    }
+}
+
+/* Mobile (Max-width 600px) */
+@media (max-width: 600px) {
+    /* Sidebar แสดงเป็นแนวนอนด้านบน */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--sidebar-border);
+        box-shadow: none;
+    }
+    .sidebar .logo {
+        display: none; 
+    }
+    .sidebar .menu {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto; 
+        padding: 0;
+        justify-content: flex-start;
+    }
+    .sidebar .menu-item {
+        flex: 0 0 auto;
+        margin: 0 5px;
+    }
+    .sidebar .menu-item a {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    .sidebar .menu-item a span {
+        display: inline;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px 10px;
+        width: 100%;
+    }
+
+    /* Header */
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: none;
+    }
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    /* KPI Cards - เรียงเป็นแนวดิ่ง 1 คอลัมน์ */
+    .col-lg-3, .col-md-6 { 
+        flex: 0 0 100%; 
+        max-width: 100%; 
+        margin-bottom: 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .btn-action-report,
+    .btn-action-home {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}

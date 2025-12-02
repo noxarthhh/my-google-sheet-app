@@ -1,0 +1,519 @@
+/*
+ * =========================================================
+ * ธีมหลัก: Modern, Clean & Dual-Mode (Light/Dark)
+ * สำหรับหน้า: setting.html (การตั้งค่าระบบ)
+ * เน้นที่ Card, Setting Item, Toggle Switch และ Select Box
+ * =========================================================
+ */
+
+/* --- 0. Global Variables (Light Mode) --- */
+:root {
+    --primary-color: #007bff; /* สีน้ำเงินหลัก */
+    --primary-hover: #0056b3; 
+    --success-color: #28a745; /* สีเขียวสำหรับ Toggle ON */
+    --danger-color: #dc3545; /* สีแดง */
+    --info-color: #17a2b8; /* สีน้ำเงิน-เขียวสำหรับปุ่ม Action */
+    
+    --cancel-red: #dc3545; /* *** NEW: สีแดงสำหรับปุ่มยกเลิกใน Modal *** */
+    --confirm-blue: #007bff; /* *** NEW: สีน้ำเงินสำหรับปุ่มยืนยันใน Modal *** */
+
+    --text-dark: #343a40; /* สีข้อความหลัก */
+    --text-light: #ffffff; /* สีข้อความสำหรับพื้นหลังเข้ม */
+    --text-muted: #6c757d; /* สีข้อความรอง */
+    --background-light: #f4f7f9; /* สีพื้นหลังโดยรวม */
+    --card-bg: #ffffff; /* สีพื้นหลังกล่องข้อมูล */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e9ecef;
+    --border-color: #dee2e6;
+    --menu-active-bg: #e2f0ff; /* สีพื้นหลังเมนูที่ Active */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05); /* เงาสำหรับกล่อง */
+}
+
+/* --- 0. Global Variables (Dark Mode Override) --- */
+body.dark-mode {
+    --primary-color: #4da6ff;
+    --primary-hover: #1e88e5;
+    --success-color: #4cd964;
+    --danger-color: #ff6b6b;
+    --info-color: #00bcd4;
+    
+    --cancel-red: #ff6b6b; /* *** NEW: สีแดงใน Dark Mode *** */
+    --confirm-blue: #4da6ff; /* *** NEW: สีน้ำเงินใน Dark Mode *** */
+    
+    --text-dark: #f8f9fa;
+    --text-light: #121212;
+    --text-muted: #adb5bd;
+    --background-light: #121212;
+    --card-bg: #1e1e1e; 
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #343a40;
+    --border-color: #495057;
+    --menu-active-bg: #293848;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 1. Base Structure & Layout (ใช้ร่วมกับทุกหน้า) --- */
+/* ----------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sukhumvit Set', 'Kanit', 'Prompt', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    display: flex;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-light);
+}
+
+.logo {
+    text-align: center;
+    padding: 0 10px 20px 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--sidebar-border);
+}
+
+.logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.menu {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.menu-item {
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.menu-item a i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    color: var(--primary-color); 
+}
+
+.menu-item:hover:not(.active) a {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.menu-item.active {
+    background-color: var(--menu-active-bg);
+}
+
+.menu-item.active a {
+    color: var(--primary-hover); 
+    font-weight: 700;
+}
+
+.menu-item.active a i {
+    color: var(--primary-hover);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 2. Main Content & Header --- */
+/* ----------------------------------------------------------------- */
+
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px; 
+    padding: 40px;
+}
+
+.main-content h1 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.main-content h1 i {
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+/* Dashboard Header (สำหรับปุ่ม Theme Toggle) */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+}
+
+.btn-theme-toggle:hover {
+    background-color: var(--menu-active-bg);
+    border-color: var(--primary-color);
+}
+.btn-theme-toggle i {
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+body.dark-mode .btn-theme-toggle i {
+    color: var(--primary-color);
+}
+body:not(.dark-mode) .btn-theme-toggle i {
+    color: #f1c40f; /* สีเหลืองสำหรับพระอาทิตย์ */
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 3. Cards & Grid (ใช้โครงสร้างแบบ Bootstrap: row, col-md-6, card) --- */
+/* ----------------------------------------------------------------- */
+
+/* Grid Utility (จำลอง) */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 30px; /* เพิ่มระยะห่างระหว่างแถว */
+}
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 30px;
+}
+
+/* Card Style */
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.card-title i {
+    margin-right: 10px;
+}
+
+/* Utility */
+.d-block { display: block; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.text-muted { color: var(--text-muted) !important; }
+.h-100 { height: 100% !important; }
+
+/* ----------------------------------------------------------------- */
+/* --- 4. Setting Groups & Controls --- */
+/* ----------------------------------------------------------------- */
+
+.setting-group {
+    margin-bottom: 30px; 
+}
+
+/* สไตล์สำหรับ Dropdown/Input ในหน้าตั้งค่า */
+.setting-select, .setting-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg); 
+    color: var(--text-dark);
+    font-size: 1rem;
+    transition: border-color 0.2s, background-color 0.2s;
+    appearance: none; /* ซ่อนลูกศร default */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+}
+
+.setting-select:focus, .setting-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Dark Mode Select/Input Colors */
+body.dark-mode .setting-select, body.dark-mode .setting-input {
+    background-color: var(--card-bg); 
+    color: var(--text-dark);
+    border-color: var(--border-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23f8f9fa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* สไตล์สำหรับปุ่ม Action ในการตั้งค่า (เช่น Change Password/Export) */
+.btn-setting-action {
+    background-color: var(--info-color);
+    color: var(--text-light);
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.btn-setting-action i {
+    margin-right: 5px;
+}
+.btn-setting-action:hover {
+    background-color: #0d8396;
+}
+
+/* สไตล์สำหรับปุ่มอันตราย (Delete Account) */
+.btn-danger-setting {
+    background-color: var(--danger-color);
+    color: var(--text-light);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+.btn-danger-setting i {
+    margin-right: 5px;
+}
+.btn-danger-setting:hover {
+    background-color: #a71d2a;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 7. Modal Styling (Logout & Others) - ปรับปรุงเพื่อรองรับไอคอนใหญ่และการสลับสีปุ่ม --- */
+/* ----------------------------------------------------------------- */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px; /* ขยายเล็กน้อย */
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 1. สไตล์สำหรับไอคอนตกใจขนาดใหญ่ */
+.modal-title.icon-only {
+    display: block; 
+    text-align: center;
+    margin-bottom: 5px; 
+    border-bottom: none; 
+    padding-bottom: 0;
+}
+
+.modal-title.icon-only i {
+    color: var(--cancel-red); /* ใช้สีแดงเข้มสำหรับไอคอนเตือน */
+    font-size: 3.5rem; /* ทำให้ไอคอนใหญ่มาก */
+    margin: 0;
+}
+
+/* สไตล์สำหรับข้อความ "ออกจากระบบ" (แยกจากไอคอน) */
+.modal-title-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark); 
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    margin-bottom: 25px; /* เพิ่มระยะห่างก่อนถึงปุ่ม */
+    font-size: 1.05rem;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px; /* ปรับให้เข้ากับภาพตัวอย่าง */
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
+    margin: 0 10px;
+}
+
+/* 2. สไตล์สำหรับปุ่มสีใหม่ (สลับสี) */
+.cancel-btn-red {
+    background-color: var(--cancel-red); /* ปุ่มยกเลิกสีแดง */
+    color: white;
+}
+.cancel-btn-red:hover {
+    background-color: #a71d2a;
+    transform: translateY(-1px);
+}
+
+.confirm-btn-blue {
+    background-color: var(--confirm-blue); /* ปุ่มยืนยันสีน้ำเงิน */
+    color: white;
+}
+.confirm-btn-blue:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 8. Responsive Design --- */
+/* ----------------------------------------------------------------- */
+
+/* Tablet & Smaller Desktop (Max-width 992px) */
+@media (max-width: 992px) {
+    /* Sidebar */
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar .logo img {
+        max-width: 50px;
+    }
+    .sidebar .menu-item a {
+        padding: 15px 10px;
+        justify-content: center;
+    }
+    .sidebar .menu-item a i {
+        margin: 0;
+    }
+    .main-content {
+        margin-left: 80px;
+        padding: 20px;
+    }
+    
+    /* Settings Grid */
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .row {
+        margin-bottom: 0;
+    }
+}
+
+/* Mobile (Max-width 600px) */
+@media (max-width: 600px) {
+    /* Sidebar แสดงเป็นแนวนอนด้านบน */
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--sidebar-border);
+    }
+    .sidebar .logo {
+        display: none; 
+    }
+    .sidebar .menu {
+        display: flex;
+        overflow-x: auto; 
+        padding: 0 5px;
+        justify-content: space-around;
+        white-space: nowrap;
+    }
+    .sidebar .menu-item {
+        flex: 1 1 auto;
+        margin: 0 2px;
+    }
+    .sidebar .menu-item a {
+        padding: 10px 5px;
+        font-size: 0.8rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    .sidebar .menu-item a i {
+        margin: 0 0 5px 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 20px 10px;
+    }
+    
+    .main-content h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .modal-actions {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .modal-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

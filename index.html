@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบเมนูนำทางพร้อม Image Slider</title>
+    <link rel="stylesheet" href="index.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img id="header-logo" src="image/67.png" alt="โลโก้ระบบ"> 
+        </a>
+    </div>
+    <ul class="menu">
+        <li class="menu-item"> 
+            <a href="index.html"><i class="fas fa-home"></i> หน้าแรก</a>
+        </li>
+        <li class="menu-item"> 
+            <a href="profile.html"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a>
+        </li>
+        <li class="menu-item">
+            <a href="save.html"><i class="fas fa-file-alt"></i> บันทึกผลการอบรม</a>
+        </li>
+        <li class="menu-item">
+            <a href="reward.html"><i class="fas fa-medal"></i> บันทึกรางวัล</a>
+        </li>
+        <li class="menu-item">
+            <a href="dashboard.html"><i class="fas fa-chart-bar"></i> รายงาน</a>
+        </li>
+        <li class="menu-item">
+            <a href="setting.html"><i class="fas fa-cog"></i> การตั้งค่า</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+    
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon-container">
+                <i class="fas fa-exclamation-triangle"></i> 
+            </div>
+
+            <div class="modal-title">ออกจากระบบ</div>
+            <p>คุณยืนยันที่จะออกจากระบบหรือไม่?</p>
+
+            <div class="modal-actions">
+                <button class="modal-btn cancel-btn-red" onclick="hideLogoutModal()">ยกเลิก</button> 
+                <button class="modal-btn confirm-btn-blue" onclick="confirmLogout()">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+    <div class="center-content">
+        <h1 class="welcome-text">ยินดีต้อนรับสู่ระบบรายงานการพัฒนาบุคลากร</h1> 
+        
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <img class="slide-item active" src="image/slide1.jpg" alt="สไลด์ 1">
+                <img class="slide-item" src="image/slide2.jpg" alt="สไลด์ 2">
+                <img class="slide-item" src="image/slide3.jpg" alt="สไลด์ 3">
+                <img class="slide-item" src="image/slide4.jpg" alt="สไลด์ 4">
+                <img class="slide-item" src="image/slide5.jpg" alt="สไลด์ 5">
+                <img class="slide-item" src="image/slide6.jpg" alt="สไลด์ 6">
+                <img class="slide-item" src="image/slide7.jpg" alt="สไลด์ 7">
+                <img class="slide-item" src="image/slide8.jpg" alt="สไลด์ 8">
+                <img class="slide-item" src="image/slide9.jpg" alt="สไลด์ 9">
+                <img class="slide-item" src="image/slide10.jpg" alt="สไลด์ 10">
+            </div>
+            <button class="slide-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="slide-btn next" onclick="moveSlide(1)">&#10095;</button>
+            
+            <div class="slide-dots">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="welcomeModal" class="modal">
+    <div class="modal-content">
+        
+        <div class="profile-icon" onclick="closeModal()">
+            <img id="userProfilePic" src="path/to/default/profile.png" alt="รูปโปรไฟล์">
+        </div>
+        
+        <h2 class="modal-title">สวัสดีตอนเช้า คุณเจนนิเฟอร์ เข้าสู่ระบบ! 🎉</h2> 
+        
+        <p>นี่คือข้อความต้อนรับเพื่อให้ผู้ใช้ทราบถึงข้อมูลสำคัญ หรือคำแนะนำการใช้งานเบื้องต้น</p>
+        <p>กรุณา <button class="modal-btn" onclick="closeModal()">เข้าสู่เว็บไซต์</button> เพื่อเข้าสู่หน้าหลักของระบบ</p>
+    </div>
+</div>
+
+<script>
+    // ******************************************************
+    // ✨ JavaScript สำหรับ Image Slider/Carousel (ทำงานทุก 5 วินาที)
+    // ******************************************************
+    let slideIndex = 1;
+    const slides = document.querySelectorAll('.slide-item');
+    const dotsContainer = document.querySelector('.slide-dots');
+    const autoSlideInterval = 5000; // <<< 5000ms = 5 วินาที
+    let timer;
+
+    function showSlides(n) {
+        let i;
+        if (n > slides.length) { 
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+        }
+        const dots = document.querySelectorAll('.dot');
+        for (i = 0; i < dots.length; i++) {
+            dots[i].classList.remove('active');
+        }
+        if (slides[slideIndex - 1]) {
+            slides[slideIndex - 1].classList.add('active');
+        }
+        if (dots.length > 0 && dots[slideIndex - 1]) {
+            dots[slideIndex - 1].classList.add('active');
+        }
+        // เรียก resetTimer เพื่อเริ่มนับเวลา 5 วินาทีใหม่
+        resetTimer();
+    }
+
+    function moveSlide(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function createDots() {
+        if (dotsContainer) {
+            dotsContainer.innerHTML = ''; 
+            for (let i = 0; i < slides.length; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                dot.setAttribute('onclick', `currentSlide(${i + 1})`);
+                dotsContainer.appendChild(dot);
+            }
+        }
+    }
+
+    function startAutoSlide() {
+        // ตั้งค่า interval เพื่อเรียก showSlides() ทุก 5 วินาที
+        timer = setInterval(() => {
+            showSlides(slideIndex += 1);
+        }, autoSlideInterval);
+    }
+
+    function resetTimer() {
+        // ล้าง timer เดิม
+        clearInterval(timer);
+        // เริ่ม timer ใหม่
+        startAutoSlide();
+    }
+    
+    // ----------------------------------------------------------------------------------
+    // โค้ด JavaScript สำหรับ Modal, Theme, Logout, Active Menu 
+    // ----------------------------------------------------------------------------------
+
+    // Welcome Modal Functions
+    function openModal() {
+        const modal = document.getElementById('welcomeModal');
+        if (modal) modal.classList.add('show');
+        // เมื่อเปิด Modal ให้บันทึกสถานะว่าเห็นแล้ว
+        localStorage.setItem('hasSeenWelcomeModal', 'true');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('welcomeModal');
+        if (modal) modal.classList.remove('show');
+    }
+    
+    // Logout Modal Functions
+    const logoutModal = document.getElementById('logoutModal');
+    const logoutButton = document.getElementById('logout-btn');
+
+    function showLogoutModal(e) {
+        if (e) e.preventDefault();
+        if (logoutModal) logoutModal.classList.add('show');
+    }
+
+    function hideLogoutModal() {
+        if (logoutModal) logoutModal.classList.remove('show');
+    }
+
+    function confirmLogout() {
+        hideLogoutModal();
+        // ล้างสถานะ Login และ Modal เมื่อ Logout
+        localStorage.removeItem('isLoggedIn'); 
+        localStorage.removeItem('userName');
+        localStorage.removeItem('hasSeenWelcomeModal'); // <<< ล้างสถานะ Modal ตรงนี้
+        window.location.replace('login.html'); 
+    }
+
+    if (logoutButton) {
+        logoutButton.addEventListener('click', showLogoutModal);
+    }
+    if (logoutModal) {
+        logoutModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideLogoutModal();
+            }
+        });
+    }
+
+    // Theme Functions (ไม่เปลี่ยนแปลง)
+    function toggleTheme(theme) {
+        const body = document.body;
+        body.classList.remove('light-mode', 'dark-mode'); 
+
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark'); 
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        toggleTheme(savedTheme); 
+    }
+
+    // Active State for Sidebar (ไม่เปลี่ยนแปลง)
+    function setActiveMenuItem() {
+        const currentPath = window.location.pathname.split('/').pop();
+        const menuItems = document.querySelectorAll('.menu-item a');
+
+        menuItems.forEach(link => {
+            const linkPath = link.getAttribute('href'); 
+            const parentItem = link.closest('.menu-item');
+
+            if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+                parentItem.classList.add('active');
+            } else {
+                parentItem.classList.remove('active');
+            }
+        });
+    }
+
+    // Update Welcome Modal Text (ไม่เปลี่ยนแปลง)
+    function getGreetingTime(hours) {
+        if (hours < 12) return "สวัสดียามเช้า";
+        if (hours < 18) return "สวัสดียามบ่าย";
+        return "สวัสดียามเย็น";
+    }
+
+    function updateWelcomeModal() {
+        const userName = localStorage.getItem('userName') || "เจนนิเฟอร์"; 
+        const currentHour = new Date().getHours();
+        const greeting = getGreetingTime(currentHour);
+        
+        const newTitle = `${greeting} คุณ${userName} เข้าสู่ระบบ! 🎉`;
+        const modalTitleElement = document.querySelector('#welcomeModal .modal-title');
+        if (modalTitleElement) {
+            modalTitleElement.innerHTML = newTitle;
+        }
+        const userProfileImageUrl = "path/to/actual/user/profile.jpg"; 
+        const profilePicElement = document.getElementById('userProfilePic');
+        if (profilePicElement && userProfileImageUrl) {
+            profilePicElement.src = userProfileImageUrl;
+        }
+    }
+
+    // Login Status Check (ไม่เปลี่ยนแปลง)
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') {
+            window.location.replace('login.html'); 
+        }
+    }
+
+
+    // Event Listeners (เมื่อหน้าเว็บโหลดเสร็จ)
+    document.addEventListener('DOMContentLoaded', function() {
+        // Start Slider
+        if (slides.length > 0) {
+            createDots();
+            showSlides(slideIndex);
+            startAutoSlide(); 
+        }
+        
+        // Other initial setup
+        checkLoginStatus(); 
+        loadTheme();
+        setActiveMenuItem();
+        updateWelcomeModal();
+    });
+
+    // ******************************************************
+    // 🔑 การแก้ไข: ควบคุมการเปิด Modal ให้ขึ้นแค่ครั้งเดียวต่อการ Login
+    // ******************************************************
+    window.onload = function() {
+        const hasSeen = localStorage.getItem('hasSeenWelcomeModal');
+        
+        // ถ้าผู้ใช้ยังไม่เคยเห็น Modal ในรอบ Login นี้ (hasSeen ไม่เป็น 'true')
+        if (hasSeen !== 'true') {
+            openModal(); // เปิด Modal
+        }
+    };
+    
+    // (ส่วนนี้ไม่เปลี่ยนแปลง)
+    window.onclick = function(event) {
+        const modal = document.getElementById('welcomeModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // โค้ดสำหรับ Submenu (ไม่เปลี่ยนแปลง)
+    document.querySelectorAll('.submenu-toggle').forEach(item => {
+        item.addEventListener('click', event => {
+            event.preventDefault(); 
+            const parentLi = item.closest('.menu-item');
+            const submenu = parentLi.querySelector('.submenu');
+            const icon = parentLi.querySelector('.submenu-icon');
+            parentLi.classList.toggle('active');
+
+            if (parentLi.classList.contains('active')) {
+                submenu.style.maxHeight = submenu.scrollHeight + "px";
+                if (icon) icon.style.transform = "rotate(180deg)";
+            } else {
+                submenu.style.maxHeight = "0";
+                if (icon) icon.style.transform = "rotate(0deg)";
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>

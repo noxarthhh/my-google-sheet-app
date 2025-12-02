@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกข้อมูลสำเร็จ</title>
+    <link rel="stylesheet" href="success.css">
+    <style>
+        /* CSS สำหรับจัดรูปแบบหน้าเว็บ */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .success-container {
+            background-color: #ffffff;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .icon {
+            color: #4CAF50; /* สีเขียวสำหรับไอคอน */
+            font-size: 80px;
+            margin-bottom: 20px;
+            /* ใช้ Unicode สำหรับเครื่องหมายถูก (✔) */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .home-button {
+            background-color: #007BFF; /* สีน้ำเงินสำหรับปุ่ม */
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* ทำให้ปุ่มปรับขนาดตามเนื้อหา */
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="icon">✔</div>
+
+        <h1>บันทึกข้อมูลสำเร็จ!</h1>
+
+        <p>ข้อมูลของคุณได้รับการบันทึกในระบบเรียบร้อยแล้ว ขอบคุณที่ใช้บริการของเรา</p>
+
+        <a href="index.html" class="home-button">กลับสู่หน้าหลัก</a>
+    </div>
+</body>
+</html>

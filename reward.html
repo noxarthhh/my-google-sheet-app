@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกรางวัล</title>
+    <link rel="stylesheet" href="reward.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script>
+        // NOTE: ฟังก์ชัน Dark Mode ถูกเรียกใน <head>
+        function toggleTheme(theme) {
+            const body = document.body;
+            body.classList.remove('light-mode', 'dark-mode'); 
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        }
+        function loadTheme() {
+            // ใช้ค่าเริ่มต้นจากระบบปฏิบัติการหากไม่มีใน localStorage
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const defaultTheme = prefersDark ? 'dark' : 'light';
+            const savedTheme = localStorage.getItem('theme') || defaultTheme; 
+            toggleTheme(savedTheme);
+        }
+        loadTheme(); 
+    </script>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img id="header-logo" src="image/67.png" alt="โลโก้ระบบ"> 
+        </a>
+    </div> 
+    
+    <ul class="menu">
+        <li class="menu-item"> 
+            <a href="index.html"><i class="fas fa-home"></i> หน้าแรก</a>
+        </li>
+        <li class="menu-item"> 
+            <a href="profile.html"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a>
+        </li>
+        <li class="menu-item">
+            <a href="save.html"><i class="fas fa-file-alt"></i> บันทึกผลการอบรม</a>
+        </li>
+        <li class="menu-item active"> 
+            <a href="reward.html"><i class="fas fa-medal"></i> บันทึกรางวัล</a>
+        </li>
+        <li class="menu-item">
+            <a href="dashboard.html"><i class="fas fa-chart-bar"></i> รายงาน</a>
+        </li>
+        <li class="menu-item">
+            <a href="setting.html"><i class="fas fa-cog"></i> การตั้งค่า</a>
+        </li>
+        <li class="menu-item">
+            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>
+        </li>
+    </ul>
+</div>
+    
+<div class="main-content">
+    
+    <h1><i class="fas fa-medal"></i> บันทึกรางวัล</h1> 
+
+    <div class="profile-container"> 
+        <form id="rewardForm">
+            
+            <div class="form-row three-col">
+                <div class="form-group">
+                    <label for="reward_name">ชื่อรางวัล:</label>
+                    <input type="text" id="reward_name" name="reward_name" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">หน่วยงานที่ออกรางวัล:</label>
+                    <input type="text" id="organization" name="organization" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="award_date">ประกาศ ณ วันที่:</label>
+                    <input type="date" id="award_date" name="award_date" class="styled-date-input">
+                </div>
+            </div>
+
+            <div class="form-row three-col">
+                <div class="form-group">
+                    <label for="level_national">ระดับชาติ:</label>
+                    <input type="text" id="level_national" name="level_national" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="level_region">ระดับภาค:</label>
+                    <input type="text" id="level_region" name="level_region" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="level_province">ระดับจังหวัด:</label>
+                    <input type="text" id="level_province" name="level_province" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+            </div>
+
+            <div class="form-row two-col">
+                <div class="form-group">
+                    <label for="level_area">ระดับเขตพื้นที่:</label>
+                    <input type="text" id="level_area" name="level_area" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="level_group">ระดับกลุ่มโรงเรียน:</label>
+                    <input type="text" id="level_group" name="level_group" placeholder="กรุณากรอก" class="styled-input">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="certificate_url">แนบเกียรติบัตร:</label>
+                <input type="file" id="certificate_url" name="certificate_url" class="styled-file-input" accept="image/jpeg,image/png,image/gif">
+                <small class="file-help-text">รองรับไฟล์ JPG, PNG, GIF ไม่เกิน 2MB</small>
+            </div>
+            
+            <div class="action-buttons">
+                <button type="button" class="submit-btn submit-btn-green" onclick="submitRewardData()">บันทึกข้อมูล</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-title icon-only"><i class="fas fa-exclamation-triangle"></i></h2> 
+        <h2 class="modal-title-text">ออกจากระบบ</h2>
+        
+        <p>คุณยืนยันที่จะออกจากระบบหรือไม่?</p>
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn-red" onclick="hideLogoutModal()">ยกเลิก</button>
+            <button class="modal-btn confirm-btn-blue" onclick="confirmLogout()">ยืนยัน</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ******************************************************
+// 0. ตั้งค่า URL ของ Google Apps Script Web App
+// ******************************************************
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdJKqG0kUFgAJ13OiWfkCCen0XEFVpivgbBoRhiFPm7b2ofO0VdKwAoQnkAMVAz-ft/exec';
+
+// ******************************************************
+// 1. ตรวจสอบสถานะการล็อกอิน (Security Check)
+// ******************************************************
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') {
+        window.location.replace('login.html');
+    }
+}
+
+// ******************************************************
+// 3. การกำหนด Active State ของ Sidebar
+// ******************************************************
+function setActiveMenuItem() {
+    const currentPath = window.location.pathname.split('/').pop();
+    const menuItems = document.querySelectorAll('.menu-item a');
+
+    menuItems.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+            link.closest('.menu-item').classList.add('active');
+        } else {
+            link.closest('.menu-item').classList.remove('active');
+        }
+    });
+}
+// ******************************************************
+// 4. การจัดการ Logout Confirmation Modal
+// ******************************************************
+const logoutModal = document.getElementById('logoutModal');
+const logoutButton = document.getElementById('logout-btn');
+
+function showLogoutModal(e) {
+    if (e) e.preventDefault();
+    if(logoutModal) logoutModal.classList.add('show');
+}
+function hideLogoutModal() {
+    if(logoutModal) logoutModal.classList.remove('show');
+}
+function confirmLogout() {
+    hideLogoutModal();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    window.location.replace('login.html');
+}
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', showLogoutModal);
+}
+if(logoutModal) {
+    logoutModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideLogoutModal();
+        }
+    });
+}
+
+// ******************************************************
+// 5. Logic สำหรับ Form (ส่งข้อมูลไป Google Sheet โดยใช้ Fetch API)
+// ******************************************************
+/**
+ * ฟังก์ชันหลักในการจัดการฟอร์มรางวัล โดยจะอ่านไฟล์, แปลงเป็น Base64, 
+ * แล้วส่งข้อมูลทั้งหมด (รวมถึง Base64) ไปยัง Apps Script ในรูปแบบ JSON.
+ */
+function submitRewardData() {
+    // กำหนด Loading State
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังบันทึก...';
+    
+    const form = document.getElementById('rewardForm');
+    const formData = new FormData(form);
+    
+    // 1. รวบรวมข้อมูล Form ทั่วไป
+    const data = {};
+    for (const [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    // เพิ่มข้อมูลที่จำเป็น
+    data.action = 'submitReward'; 
+    // ใช้ ISO String เพื่อความเป็นสากล
+    data.timestamp = new Date().toISOString(); 
+
+    const fileInput = document.getElementById('certificate_url');
+    const file = fileInput.files[0];
+
+    // ตรวจสอบข้อมูลบังคับ (ตัวอย่าง)
+    if (!data.reward_name || !data.organization) {
+        alert('⚠️ กรุณากรอกชื่อรางวัลและหน่วยงานที่ออกรางวัล');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+    }
+
+    if (!file) {
+        // ถ้าไม่มีไฟล์ ให้ส่งข้อมูลฟอร์มที่เหลือเป็น JSON
+        sendData(data, submitBtn, originalText);
+        return;
+    }
+
+    // 2. ตรวจสอบขนาดไฟล์ (จำกัดไม่เกิน 2MB) และประเภทไฟล์
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+    const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+    
+    if (file.size > MAX_SIZE) {
+        alert('❌ ขนาดไฟล์เกิน 2MB โปรดเลือกไฟล์ที่เล็กลง');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+    }
+    
+    if (!ALLOWED_TYPES.includes(file.type)) {
+        alert('❌ รูปแบบไฟล์ไม่ถูกต้อง รองรับเฉพาะ JPG, PNG, GIF เท่านั้น');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+    }
+
+
+    // 3. อ่านไฟล์และแปลงเป็น Base64
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        const base64 = e.target.result.split(',')[1]; 
+        
+        data.fileName = file.name;
+        data.fileType = file.type;
+        data.fileData = base64; 
+
+        // 4. ส่งข้อมูล JSON ไปยัง Apps Script
+        sendData(data, submitBtn, originalText);
+    };
+    
+    reader.onerror = function(e) {
+        alert('❌ ไม่สามารถอ่านไฟล์ได้');
+        console.error("File reading error: ", e);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+/**
+ * ฟังก์ชันย่อยสำหรับส่งข้อมูล JSON ไปยัง Apps Script
+ * @param {Object} data - ข้อมูลฟอร์มพร้อม Base64 (ถ้ามีไฟล์)
+ * @param {HTMLElement} submitBtn - ปุ่มสำหรับจัดการสถานะ
+ * @param {string} originalText - ข้อความเดิมของปุ่ม
+ */
+function sendData(data, submitBtn, originalText) {
+    fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify(data), 
+        headers: {
+            'Content-Type': 'application/json' 
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`การเชื่อมต่อล้มเหลว (HTTP Status: ${response.status}).`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Server response:', result);
+        
+        if (result && result.result === 'success') {
+            alert('✅ บันทึกข้อมูลและอัปโหลดเกียรติบัตรสำเร็จ!');
+            // ส่งไปหน้า success.html หลังจากบันทึกสำเร็จ
+            window.location.href = 'success.html';
+        } else {
+            alert('❌ การบันทึกข้อมูลล้มเหลว: ' + (result ? result.message : 'ไม่ทราบสาเหตุ'));
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        alert(`🚨 เกิดข้อผิดพลาดในการส่งข้อมูล: ${error.message} \n\nโปรดตรวจสอบการตั้งค่า Apps Script Deployment`);
+    })
+    .finally(() => {
+        // คืนค่า state ของปุ่ม
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    });
+}
+
+
+// ******************************************************
+// 6. INITIALIZATION (เมื่อหน้าโหลดเสร็จ)
+// ******************************************************
+document.addEventListener('DOMContentLoaded', () => {
+    checkLoginStatus();
+    setActiveMenuItem();
+});
+</script>
+</body>
+</html>

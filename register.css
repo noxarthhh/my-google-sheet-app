@@ -1,0 +1,120 @@
+/* กำหนดตัวแปรสีพื้นฐาน (Optional but recommended) */
+:root {
+    --primary-color: #007bff; /* สีน้ำเงินหลัก */
+    --secondary-color: #6c757d; /* สีเทารอง */
+    --background-color: #f4f7f6; /* สีพื้นหลังอ่อน */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+/* จัดรูปแบบ Body ทั่วไป */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container ที่จำกัดความกว้างของฟอร์ม */
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+}
+
+/* กล่องฟอร์มหลัก */
+.register-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+/* โลโก้ */
+.register-logo {
+    max-width: 80px;
+    margin-bottom: 15px;
+}
+
+/* หัวข้อ */
+h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* กลุ่ม Input */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* ไอคอนใน Input */
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 1rem;
+}
+
+/* ช่องกรอกข้อมูล */
+.input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 45px; /* เพิ่ม padding ซ้ายสำหรับไอคอน */
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box; 
+}
+
+/* สถานะเมื่อช่อง Input ถูกโฟกัส */
+.input-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* ปุ่มสมัครสมาชิก */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+/* สถานะเมื่อเมาส์ชี้ที่ปุ่ม */
+.register-btn:hover {
+    background-color: #0056b3;
+}
+
+/* สถานะเมื่อคลิกปุ่ม */
+.register-btn:active {
+    transform: scale(0.99);
+}
+
+/* ลิงก์กลับไปหน้าเข้าสู่ระบบ */
+.login-link {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+/* สถานะเมื่อเมาส์ชี้ที่ลิงก์ */
+.login-link:hover {
+    color: var(--primary-color);
+}

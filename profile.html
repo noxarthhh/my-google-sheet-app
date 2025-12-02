@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกข้อมูลส่วนตัว | ระบบจัดการบุคลากร</title>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img id="header-logo" src="image/67.png" alt="โลโก้ระบบ">
+        </a>
+    </div>
+    <ul class="menu">
+        <li class="menu-item">
+            <a href="index.html"><i class="fas fa-home"></i> <span>หน้าแรก</span></a>
+        </li>
+        <li class="menu-item active">
+            <a href="profile.html"><i class="fas fa-user"></i> <span>ข้อมูลส่วนตัว</span></a>
+        </li>
+        <li class="menu-item">
+            <a href="save.html"><i class="fas fa-file-alt"></i> <span>บันทึกผลการอบรม</span></a>
+        </li>
+        <li class="menu-item">
+            <a href="reward.html"><i class="fas fa-medal"></i> <span>บันทึกรางวัล</span></a>
+        </li>
+        <li class="menu-item">
+            <a href="dashboard.html"><i class="fas fa-chart-bar"></i> <span>รายงาน</span></a>
+        </li>
+        <li class="menu-item">
+            <a href="setting.html"><i class="fas fa-cog"></i> <span>การตั้งค่า</span></a>
+        </li>
+        <li class="menu-item">
+            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>ออกจากระบบ</span></a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <h1><i class="fas fa-user-edit"></i> บันทึกข้อมูลส่วนตัวของบุคลากร</h1>
+    
+    <div class="profile-container"> 
+        <form id="profileForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="select-prefix">คำนำหน้า:</label>
+                    <select id="select-prefix" name="prefix" class="styled-select" required>
+                        <option value="" disabled selected>เลือก</option>
+                        <option value="นาย">นาย</option>
+                        <option value="นาง">นาง</option>
+                        <option value="นางสาว">นางสาว</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="first-name">ชื่อ:</label>
+                    <input type="text" id="first-name" name="first_name" placeholder="กรุณากรอกชื่อจริง" class="styled-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">นามสกุล:</label>
+                    <input type="text" id="last-name" name="last_name" placeholder="กรุณากรอกนามสกุล" class="styled-input" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="select-position-main">เลือกตำแหน่ง:</label>
+                <select id="select-position-main" name="position" class="styled-select" required>
+                    <option value="" disabled selected>เลือก</option>
+                    <option value="ผู้อำนวยการสำนักงานเขตพื้นที่การศึกษา">ผู้อำนวยการสำนักงานเขตพื้นที่การศึกษา</option>
+                    <option value="รองผู้อำนวยการสำนักงานเขตพื้นที่การศึกษา">รองผู้อำนวยการสำนักงานเขตพื้นที่การศึกษา</option>
+                    <option value="ผู้อำนวยการสถานศึกษา">ผู้อำนวยการสถานศึกษา</option>
+                    <option value="รองผู้อำนวยการสถานศึกษา">รองผู้อำนวยการสถานศึกษา</option>
+                    <option value="ครู">ครู</option>
+                    <option value="ครูผู้ช่วย">ครูผู้ช่วย</option>
+                    <option value="บุคลากรทางการศึกษาอื่น ตามมาตรา 38 ค(2)">บุคลากรทางการศึกษาอื่น ตามมาตรา 38 ค(2)</option>
+                    <option value="ศึกษานิเทศก์">ศึกษานิเทศก์</option>
+                    <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                    <option value="พนักงานราชการ">พนักงานราชการ</option>
+                    <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="select-affiliation">สังกัด/โรงเรียน:</label>
+                <select id="select-affiliation" name="affiliation" class="styled-select" required>
+                    <option value="" disabled selected>เลือก</option>
+                    <option value="ชุมชนบ้านตลาดทุ่งเหียง">ชุมชนบ้านตลาดทุ่งเหียง</option>
+                    <option value="ชุมชนวัดโบสถ์">ชุมชนวัดโบสถ์</option>
+                    <option value="ชุมชนวัดหนองตำลึง">ชุมชนวัดหนองตำลึง</option>
+                    <option value="ไทยรัฐวิทยา 42">ไทยรัฐวิทยา 42</option>
+                    <option value="บ้านเกาะโพธิ์ (วันครู2500)">บ้านเกาะโพธิ์ (วันครู2500)</option>
+                    <option value="บ้านขุนชำนาญ">บ้านขุนชำนาญ</option>
+                    <option value="บ้านเขาดินวังตาสี">บ้านเขาดินวังตาสี</option>
+                    <option value="บ้านเขาวังแก้ว">บ้านเขาวังแก้ว</option>
+                    <option value="บ้านเขาสัตตพรหม">บ้านเขาสัตตพรหม</option>
+                    <option value="บ้านเขาใหญ่">บ้านเขาใหญ่</option>
+                    <option value="บ้านเขาอำนวยสุข">บ้านเขาอำนวยสุข</option>
+                    <option value="บ้านคลองกุ่ม">บ้านคลองกุ่ม</option>
+                    <option value="บ้านคลองโค">บ้านคลองโค</option>
+                    <option value="บ้านคลองตาเพชร">บ้านคลองตาเพชร</option>
+                    <option value="บ้านคลองปริง">บ้านคลองปริง</option>
+                    <option value="บ้านคลองยาง">บ้านคลองยาง</option>
+                    <option value="บ้านคลองใหญ่">บ้านคลองใหญ่</option>
+                    <option value="บ้านคลองโอ่ง">บ้านคลองโอ่ง</option>
+                    <option value="บ้านโค้งประดู่">บ้านโค้งประดู่</option>
+                    <option value="บ้านเจ็ดเนิน">บ้านเจ็ดเนิน</option>
+                    <option value="บ้านชุมนุมปรกฟ้า">บ้านชุมนุมปรกฟ้า</option>
+                    <option value="บ้านตลาดเนินหิน">บ้านตลาดเนินหิน</option>
+                    <option value="บ้านทรายมูล">บ้านทรายมูล</option>
+                    <option value="บ้านทับร้าง">บ้านทับร้าง</option>
+                    <option value="บ้านทับสูง">บ้านทับสูง</option>
+                    <option value="บ้านทุ่งน้อย">บ้านทุ่งน้อย</option>
+                    <option value="บ้านธรรมรัตน์">บ้านธรรมรัตน์</option>
+                    <option value="บ้านน้ำซับ">บ้านน้ำซับ</option>
+                    <option value="บ้านเนิน">บ้านเนิน</option>
+                    <option value="บ้านเนินดินแดง">บ้านเนินดินแดง</option>
+                    <option value="บ้านเนินถาวร">บ้านเนินถาวร</option>
+                    <option value="บ้านเนินทุ่ง">บ้านเนินทุ่ง</option>
+                    <option value="บ้านเนินหลังเต่า">บ้านเนินหลังเต่า</option>
+                    <option value="บ้านบ่อกวางทอง">บ้านบ่อกวางทอง</option>
+                    <option value="บ้านบางแสม">บ้านบางแสม</option>
+                    <option value="บ้านบางหัก">บ้านบางหัก</option>
+                    <option value="บ้านบึงตะกู">บ้านบึงตะกู</option>
+                    <option value="บ้านแปลง">บ้านแปลง</option>
+                    <option value="บ้านแปลงกระถิน">บ้านแปลงกระถิน</option>
+                    <option value="บ้านโปร่งเกตุ">บ้านโปร่งเกตุ</option>
+                    <option value="บ้านย่านซื่อ">บ้านย่านซื่อ</option>
+                    <option value="บ้านไร่เสธ์">บ้านไร่เสธ์</option>
+                    <option value="บ้านวังมะเดื่อ">บ้านวังมะเดื่อ</option>
+                    <option value="บ้านสระนา">บ้านสระนา</option>
+                    <option value="บ้านสระสี่เหลี่ยม">บ้านสระสี่เหลี่ยม</option>
+                    <option value="บ้านสามแยก">บ้านสามแยก</option>
+                    <option value="บ้านหนองเกตุ">บ้านหนองเกตุ</option>
+                    <option value="บ้านหนองขยาด">บ้านหนองขยาด</option>
+                    <option value="บ้านหนองข่า">บ้านหนองข่า</option>
+                    <option value="บ้านหนองชุมเห็ด">บ้านหนองชุมเห็ด</option>
+                    <option value="บ้านหนองไผ่">บ้านหนองไผ่</option>
+                    <option value="บ้านหนองไผ่แก้ว">บ้านหนองไผ่แก้ว</option>
+                    <option value="บ้านหนองพรหม">บ้านหนองพรหม</option>
+                    <option value="บ้านหนองยาง">บ้านหนองยาง</option>
+                    <option value="บ้านหนองยายหมาด">บ้านหนองยายหมาด</option>
+                    <option value="บ้านหนองสองห้อง">บ้านหนองสองห้อง</option>
+                    <option value="บ้านหนองเสม็ด">บ้านหนองเสม็ด</option>
+                    <option value="บ้านหนองหัวหมู">บ้านหนองหัวหมู</option>
+                    <option value="บ้านห้วยตากด้าย">บ้านห้วยตากด้าย</option>
+                    <option value="บ้านห้วยหวาย">บ้านห้วยหวาย</option>
+                    <option value="บ้านอ่างกระพงศ์">บ้านอ่างกระพงศ์</option>
+                    <option value="วัดกลางคลองหลวง">วัดกลางคลองหลวง</option>
+                    <option value="วัดเกาะลอย">วัดเกาะลอย</option>
+                    <option value="วัดแก้วศิลาราม">วัดแก้วศิลาราม</option>
+                    <option value="วัดเขาคีรีรมย์">วัดเขาคีรีรมย์</option>
+                    <option value="วัดเขาวนาพุทธาราม">วัดเขาวนาพุทธาราม</option>
+                    <option value="วัดโคกขี้หนอน">วัดโคกขี้หนอน</option>
+                    <option value="วัดโคกพระศิลาราม">วัดโคกพระศิลาราม</option>
+                    <option value="วัดโคกเพลาะ">วัดโคกเพลาะ</option>
+                    <option value="วัดชุมแสงศรีวนาราม">วัดชุมแสงศรีวนาราม</option>
+                    <option value="วัดเซิดสำราญ">วัดเซิดสำราญ</option>
+                    <option value="วัดทรงธรรม">วัดทรงธรรม</option>
+                    <option value="วัดท่าบุญมี">วัดท่าบุญมี</option>
+                    <option value="วัดทุ่งเหียง">วัดทุ่งเหียง</option>
+                    <option value="วัดนากระรอก">วัดนากระรอก</option>
+                    <option value="วัดนาวังหิน">วัดนาวังหิน</option>
+                    <option value="วัดเนินตามาก">วัดเนินตามาก</option>
+                    <option value="วัดเนินสัก">วัดเนินสัก</option>
+                    <option value="วัดบางนาง">วัดบางนาง</option>
+                    <option value="วัดบ้านกลาง">วัดบ้านกลาง</option>
+                    <option value="วัดบ้านเก่า">วัดบ้านเก่า</option>
+                    <option value="วัดบ้านงิ้ว">วัดบ้านงิ้ว</option>
+                    <option value="วัดบ้านไร่">วัดบ้านไร่</option>
+                    <option value="วัดบ้านศาลา">วัดบ้านศาลา</option>
+                    <option value="วัดป่าแก้ว">วัดป่าแก้ว</option>
+                    <option value="วัดแปลงเกต">วัดแปลงเกต</option>
+                    <option value="วัดโป่งตามุข">วัดโป่งตามุข</option>
+                    <option value="วัดโป่งปากดง">วัดโป่งปากดง</option>
+                    <option value="วัดพานทอง">วัดพานทอง</option>
+                    <option value="วัดวรพรตสังฆาวาส">วัดวรพรตสังฆาวาส</option>
+                    <option value="วัดศรีประชาราม">วัดศรีประชาราม</option>
+                    <option value="วัดสำเภาทอง">วัดสำเภาทอง</option>
+                    <option value="วัดสุวรรณารัญญิกาวาส">วัดสุวรรณารัญญิกาวาส</option>
+                    <option value="วัดหนองกะขะ">วัดหนองกะขะ</option>
+                    <option value="วัดหนองกาน้ำ">วัดหนองกาน้ำ</option>
+                    <option value="วัดหนองแช่แว่น">วัดหนองแช่แว่น</option>
+                    <option value="วัดหนองปรือ">วัดหนองปรือ</option>
+                    <option value="วัดหนองม่วงใหม่">วัดหนองม่วงใหม่</option>
+                    <option value="วัดหนองสังข์">วัดหนองสังข์</option>
+                    <option value="วัดหนองหัวหมู">วัดหนองหัวหมู</option>
+                    <option value="วัดหน้าพระธาตุ">วัดหน้าพระธาตุ</option>
+                    <option value="วัดหลวงพรหมาวาส">วัดหลวงพรหมาวาส</option>
+                    <option value="วัดห้วยยาง">วัดห้วยยาง</option>
+                    <option value="วัดหัวถนน">วัดหัวถนน</option>
+                    <option value="วัดแหลมแค">วัดแหลมแค</option>
+                    <option value="วัดใหม่ท่าโพธิ์">วัดใหม่ท่าโพธิ์</option>
+                    <option value="วัดอัมพวนาราม">วัดอัมพวนาราม</option>
+                    <option value="สวนป่าคลองตาเพชรบน">สวนป่าคลองตาเพชรบน</option>
+                    <option value="อนุบาลเกาะจันทน์">อนุบาลเกาะจันทน์</option>
+                    <option value="อนุบาลบ่อทอง">อนุบาลบ่อทอง</option>
+                    <option value="อนุบาลพนัสศึกษาลัย">อนุบาลพนัสศึกษาลัย</option>
+                    <option value="อนุบาลพานทองวัดหนองกระทุ่ม">อนุบาลพานทองวัดหนองกระทุ่ม</option>
+                    <option value="อนุบาลวัดโคกท่าเจริญ">อนุบาลวัดโคกท่าเจริญ</option>
+                    <option value="สพป.ชลบุรี เขต 2">สพป.ชลบุรี เขต 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="select-level-main">เลือกวิทยฐานะ/ระดับ:</label>
+                <select id="select-level-main" name="academic_level" class="styled-select" required>
+                    <option value="" disabled selected>เลือก</option>
+                    <option value="เชี่ยวชาญพิเศษ">เชี่ยวชาญพิเศษ</option>
+                    <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                    <option value="ชำนาญการพิเศษ">ชำนาญการพิเศษ</option>
+                    <option value="ชำนาญการ">ชำนาญการ</option>
+                    <option value="ไม่มีวิทยฐานะ">ไม่มีวิทยฐานะ</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="select-subject">กลุ่มสาระการเรียนรู้:</label>
+                <select id="select-subject" name="subject" class="styled-select" required>
+                    <option value="" disabled selected>เลือก</option>
+                    <option value="กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี</option>
+                    <option value="กลุ่มสาระการเรียนรู้คณิตศาสตร์">กลุ่มสาระการเรียนรู้คณิตศาสตร์</option>
+                    <option value="กลุ่มสาระการเรียนรู้ภาษาไทย">กลุ่มสาระการเรียนรู้ภาษาไทย</option>
+                    <option value="กลุ่มสาระการเรียนรู้สังคมศึกษา">กลุ่มสาระการเรียนรู้สังคมศึกษา ศาสนา และวัฒนธรรม</option>
+                    <option value="กลุ่มสาระการเรียนรู้สุขศึกษาและพละศึกษา">กลุ่มสาระการเรียนรู้สุขศึกษาและพละศึกษา</option>
+                    <option value="กลุ่มสาระการเรียนรู้ศิลปะ">กลุ่มสาระการเรียนรู้ศิลปะ</option>
+                    <option value="กลุ่มสาระการเรียนรู้การงานอาชีพ">กลุ่มสาระการเรียนรู้การงานอาชีพ</option>
+                    <option value="กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ">กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</option>
+                    <option value="อื่นๆ">อื่นๆ</option>
+                </select>
+            </div>
+            
+            <div class="action-buttons">
+                <button type="button" class="submit-btn" onclick="saveProfileData()">
+                    <i class="fas fa-save"></i> บันทึกข้อมูล
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-icon-container">
+            <i class="fas fa-exclamation-triangle"></i> 
+        </div>
+
+        <div class="modal-title">ออกจากระบบ</div>
+        <p>คุณยืนยันที่จะออกจากระบบหรือไม่?</p>
+
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn-red" onclick="hideLogoutModal()">ยกเลิก</button> 
+            
+            <button class="modal-btn confirm-btn-blue" onclick="confirmLogout()">ยืนยัน</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// ******************************************************
+// 0. Global Settings
+// ******************************************************
+// 🔴🔴🔴 สำคัญ: อย่าลืมเปลี่ยน URL ตรงนี้หลังจาก Deploy ใหม่ 🔴🔴🔴
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdJKqG0kUFgAJ13OiWfkCCen0XEFVpivgbBoRhiFPm7b2ofO0VdKwAoQnkAMVAz-ft/exec'; 
+const logoutModal = document.getElementById('logoutModal');
+const logoutButton = document.getElementById('logout-btn');
+
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') window.location.replace('login.html'); 
+}
+
+function toggleTheme(theme) {
+    const body = document.body;
+    body.classList.remove('light-mode', 'dark-mode'); 
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    toggleTheme(savedTheme);
+}
+
+function setActiveMenuItem() {
+    const currentPath = window.location.pathname.split('/').pop();
+    const menuItems = document.querySelectorAll('.menu a');
+    menuItems.forEach(link => {
+        const linkPath = link.getAttribute('href').split('/').pop();
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+            link.closest('.menu-item').classList.add('active');
+        } else {
+            link.closest('.menu-item').classList.remove('active');
+        }
+    });
+}
+
+function showLogoutModal(e) { if (e) e.preventDefault(); if(logoutModal) logoutModal.classList.add('show'); }
+function hideLogoutModal() { if(logoutModal) logoutModal.classList.remove('show'); }
+function confirmLogout() {
+    hideLogoutModal();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    window.location.replace('login.html');
+}
+
+if (logoutButton) logoutButton.addEventListener('click', showLogoutModal);
+if(logoutModal) logoutModal.addEventListener('click', function(e) { if (e.target === this) hideLogoutModal(); });
+
+function loadProfileData() { console.log("Attempting to load profile data..."); }
+
+function saveProfileData() {
+    const form = document.getElementById('profileForm');
+    const formData = new FormData(form);
+    
+    if (!form.checkValidity()) {
+         alert('⚠️ กรุณากรอกข้อมูลให้ครบถ้วนทุกช่อง');
+         form.reportValidity();
+         return;
+    }
+    
+    const data = new URLSearchParams();
+    data.append('action', 'submitProfile'); 
+    for (const pair of formData) {
+        data.append(pair[0], pair[1]);
+    }
+    
+    const timestamp = new Date().toLocaleString('th-TH');
+    data.append('timestamp', timestamp);
+
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+
+    fetch(WEB_APP_URL, {
+        method: 'POST',
+        redirect: 'follow', // สำคัญมาก
+        body: data,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+    .then(response => {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) return response.json();
+        return response.text().then(text => {
+             // Handle กรณีส่งกลับมาเป็น text แต่เนื้อหาคือ json หรือ html error
+             try { return JSON.parse(text); } catch (e) { return { result: 'error', message: text }; }
+        });
+    })
+    .then(result => {
+        if (result && result.result === 'success') {
+            alert('✅ บันทึกข้อมูลไปยัง Google Sheet สำเร็จ!');
+            form.reset(); // ล้างฟอร์มหลังจากบันทึกเสร็จ
+        } else {
+            alert('❌ การบันทึกข้อมูลล้มเหลว: ' + (result.message || JSON.stringify(result)));
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        alert('🚨 เกิดข้อผิดพลาด: ' + error.message);
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus();
+    loadTheme();
+    setActiveMenuItem();
+    loadProfileData();
+});
+
+
+// ******************************************************
+// 1. ตรวจสอบสถานะการล็อกอิน (Security Check)
+// ******************************************************
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') {
+        // ใช้ replace เพื่อไม่ให้ผู้ใช้กดปุ่มย้อนกลับมาที่หน้านี้ได้
+        window.location.replace('login.html'); 
+    }
+}
+
+
+// ******************************************************
+// 2. การจัดการ Theme (Light/Dark Mode)
+// ******************************************************
+function toggleTheme(theme) {
+    const body = document.body;
+    // ลบ class เก่าออกก่อน
+    body.classList.remove('light-mode', 'dark-mode'); 
+
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    toggleTheme(savedTheme);
+}
+
+
+// ******************************************************
+// 3. การกำหนด Active State ของ Sidebar
+// ******************************************************
+function setActiveMenuItem() {
+    const currentPath = window.location.pathname.split('/').pop();
+    const menuItems = document.querySelectorAll('.menu a'); // เลือกเฉพาะ tag <a> ใต้เมนู
+
+    menuItems.forEach(link => {
+        const linkPath = link.getAttribute('href').split('/').pop();
+        // ตรวจสอบชื่อไฟล์ปัจจุบัน
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+            link.closest('.menu-item').classList.add('active');
+        } else {
+            link.closest('.menu-item').classList.remove('active');
+        }
+    });
+}
+
+
+// ******************************************************
+// 4. การจัดการ Logout Confirmation Modal
+// ******************************************************
+function showLogoutModal(e) {
+    if (e) e.preventDefault();
+    if(logoutModal) logoutModal.classList.add('show');
+}
+
+function hideLogoutModal() {
+    if(logoutModal) logoutModal.classList.remove('show');
+}
+
+function confirmLogout() {
+    hideLogoutModal();
+    // เคลียร์สถานะการล็อกอิน
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    // นำไปยังหน้าล็อกอิน
+    window.location.replace('login.html');
+}
+
+// Event Listeners สำหรับ Modal
+if (logoutButton) {
+    // เมื่อคลิกปุ่ม "ออกจากระบบ" ใน Sidebar
+    logoutButton.addEventListener('click', showLogoutModal);
+}
+
+if(logoutModal) {
+    // เมื่อคลิกพื้นที่ว่างนอก Modal
+    logoutModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideLogoutModal();
+        }
+    });
+}
+
+
+// ******************************************************
+// 5. Logic สำหรับ Form (ส่งข้อมูลไป Google Sheet โดยใช้ Fetch API)
+// ******************************************************
+
+/**
+ * ฟังก์ชันสำหรับดึงข้อมูลเดิมของผู้ใช้มาแสดงในฟอร์ม (ถ้ามี)
+ * NOTE: ต้องใช้ Google Apps Script ในการดึงข้อมูลจาก Sheet กลับมา
+ */
+function loadProfileData() {
+    // *** Logic สำหรับดึงข้อมูลเดิม (Fetch) จะอยู่ที่นี่ ***
+    // const userId = localStorage.getItem('userId'); // สมมติว่ามีการเก็บ ID ผู้ใช้
+    
+    // fetch(WEB_APP_URL + '?action=getProfile&id=' + userId) 
+    // ... then()...
+    
+    // สำหรับตอนนี้ ยังไม่มี Logic การดึงข้อมูลจริงจัง จึงปล่อยให้ว่างไว้
+    console.log("Attempting to load profile data...");
+}
+
+
+function saveProfileData() {
+    const form = document.getElementById('profileForm');
+    const formData = new FormData(form);
+    
+    // ตรวจสอบว่าข้อมูลครบถ้วนหรือไม่ (ใช้ attribute 'required' ใน HTML จะง่ายกว่า)
+    if (!form.checkValidity()) {
+         alert('⚠️ กรุณากรอกข้อมูลให้ครบถ้วนทุกช่อง');
+         form.reportValidity(); // แสดงข้อความเตือนของเบราว์เซอร์
+         return;
+    }
+    
+    // แปลง FormData เป็น URL-encoded string สำหรับการส่งแบบ POST
+    const data = new URLSearchParams();
+    data.append('action', 'submitProfile'); 
+    for (const pair of formData) {
+        data.append(pair[0], pair[1]);
+    }
+    
+    // เพิ่ม Timestamp
+    const timestamp = new Date().toLocaleString('th-TH', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    data.append('timestamp', timestamp);
+
+    // แสดง loading state
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+    submitBtn.style.opacity = 0.7;
+
+
+    // ส่งข้อมูลด้วย Fetch API
+    fetch(WEB_APP_URL, {
+        method: 'POST',
+        redirect: 'follow',
+        body: data,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => {
+        // พยายามอ่าน response เป็น JSON ก่อน หากไม่ใช่ ให้พยายามอ่านเป็นข้อความ
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        } else {
+            return response.text().then(text => {
+                if (text.includes('success') || response.status === 200) {
+                    return { result: 'success' };
+                }
+                // ถ้ามีข้อความอื่นๆ ที่ไม่ใช่ 'success' ถือว่าเป็น error
+                return { result: 'error', message: `Server Text Response: ${text}` };
+            });
+        }
+    })
+    .then(result => {
+        console.log('Server response:', result);
+        
+        if (result && (result.result === 'success' || result === 'success')) {
+            alert('✅ บันทึกข้อมูลไปยัง Google Sheet สำเร็จ!');
+        } else {
+            const errorMsg = result ? (result.message || JSON.stringify(result)) : 'ไม่ทราบสาเหตุ';
+            alert('❌ การบันทึกข้อมูลล้มเหลว: ' + errorMsg);
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        
+        let alertMsg = `🚨 เกิดข้อผิดพลาดในการส่งข้อมูล: ${error.message}`;
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+              alertMsg = `🚨 ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้\n\nโปรดตรวจสอบ:\n1. การเชื่อมต่ออินเทอร์เน็ต\n2. URL ของ Apps Script ถูกต้องหรือไม่`;
+        }
+        alert(alertMsg);
+    })
+    .finally(() => {
+        // คืนสถานะปุ่ม
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        submitBtn.style.opacity = 1;
+    });
+}
+
+
+// ******************************************************
+// 6. การเรียกใช้ฟังก์ชันเริ่มต้นเมื่อโหลดหน้า
+// ******************************************************
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus();
+    loadTheme();
+    setActiveMenuItem();
+    loadProfileData(); // โหลดข้อมูลเดิมเมื่อเข้าหน้า
+});
+</script>
+
+</body>
+</html>

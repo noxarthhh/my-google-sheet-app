@@ -1,0 +1,517 @@
+/*
+ * =========================================================
+ * ธีมหลัก: Modern, Clean & Dual-Mode (Light/Dark)
+ * สำหรับหน้า: reward.html (หน้าบันทึกรางวัล)
+ * ใช้โครงสร้าง Grid/Flexbox และสีเดียวกับ profile.css
+ * =========================================================
+ */
+
+/* --- 0. Global Variables (Light Mode) --- */
+:root {
+    --primary-color: #007bff; /* สีน้ำเงินหลัก */
+    --primary-hover: #0056b3; 
+    --success-color: #28a745; /* สีเขียวสำหรับปุ่มบันทึก */
+    --danger-color: #dc3545; /* สีแดงสำหรับไอคอนและปุ่มยกเลิก */
+    
+    --text-dark: #343a40; /* สีข้อความหลัก */
+    --text-light: #ffffff; /* สีข้อความสำหรับพื้นหลังเข้ม */
+    --text-muted: #6c757d; /* สีข้อความรอง */
+    --background-light: #f4f7f9; /* สีพื้นหลังโดยรวม */
+    --card-bg: #ffffff; /* สีพื้นหลังกล่องข้อมูล */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e9ecef;
+    --border-color: #dee2e6;
+    --input-bg: #f8f9fa; /* สีพื้นหลัง input */
+    --input-border-focus: #80bdff;
+    --menu-active-bg: #e2f0ff; /* สีพื้นหลังเมนูที่ Active */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05); /* เงาสำหรับกล่อง */
+    
+    /* *** ตัวแปรสีสำหรับ Modal (Logout Style) *** */
+    --modal-cancel-red: #dc3545; /* สีแดงสำหรับปุ่มยกเลิก */
+    --modal-confirm-blue: #007bff; /* สีน้ำเงินสำหรับปุ่มยืนยัน */
+}
+
+/* --- 0. Global Variables (Dark Mode Override) --- */
+body.dark-mode {
+    --primary-color: #4da6ff;
+    --primary-hover: #1e88e5;
+    --success-color: #4cd964;
+    --danger-color: #ff6b6b;
+    
+    --text-dark: #f8f9fa;
+    --text-light: #121212;
+    --text-muted: #adb5bd;
+    --background-light: #121212;
+    --card-bg: #1e1e1e; 
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #343a40;
+    --border-color: #495057;
+    --input-bg: #2d2d2d;
+    --input-border-focus: #4da6ff;
+    --menu-active-bg: #293848;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.4);
+    
+    /* *** ตัวแปรสีสำหรับ Modal (Logout Style) ใน Dark Mode *** */
+    --modal-cancel-red: #ff6b6b; 
+    --modal-confirm-blue: #4da6ff;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 1. Base Structure & Layout --- */
+/* ----------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sukhumvit Set', 'Kanit', 'Prompt', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    display: flex;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    position: fixed; 
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-light);
+}
+
+.logo {
+    text-align: center;
+    padding: 0 10px 20px 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--sidebar-border);
+}
+
+.logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.menu {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.menu-item {
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.menu-item a i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    color: var(--primary-color); 
+}
+
+.menu-item:hover:not(.active) a {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.menu-item.active {
+    background-color: var(--menu-active-bg);
+}
+
+.menu-item.active a {
+    color: var(--primary-hover); 
+    font-weight: 700;
+}
+
+.menu-item.active a i {
+    color: var(--primary-hover);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 2. Main Content & Header --- */
+/* ----------------------------------------------------------------- */
+
+.main-content {
+    flex-grow: 1;
+    margin-left: 250px; 
+    padding: 40px;
+}
+
+.main-content h1 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.main-content h1 i {
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 3. Reward Form Container & Grid Layout --- */
+/* ----------------------------------------------------------------- */
+
+.profile-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+/* ใช้ CSS Grid สำหรับจัดวางฟอร์ม */
+.form-row {
+    display: grid;
+    gap: 20px; /* ระยะห่างระหว่างคอลัมน์ */
+    margin-bottom: 20px; 
+}
+
+/* สำหรับแถวที่มี 3 คอลัมน์ */
+.form-row.three-col {
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+/* สำหรับแถวที่มี 2 คอลัมน์ */
+.form-row.two-col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* สำหรับ input ที่ต้องการเต็มความกว้างในแถวที่มี Layout Grid */
+.form-group.full-width {
+    grid-column: 1 / -1; /* ครอบคลุมทุกคอลัมน์ใน Grid */
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 4. Input & Date/File Styling --- */
+/* ----------------------------------------------------------------- */
+
+.styled-input,
+.styled-date-input,
+.styled-select,
+.styled-textarea { 
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--input-bg); 
+    color: var(--text-dark);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    appearance: none; 
+}
+
+.styled-input:focus,
+.styled-date-input:focus,
+.styled-select:focus,
+.styled-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.styled-textarea {
+    resize: vertical; 
+    min-height: 100px;
+}
+
+/* --- File Input Customization --- */
+.styled-file-input {
+    display: block; 
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+}
+
+.file-help-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 5. Action Buttons (ปุ่มสีเขียวสำหรับ Submit) --- */
+/* ----------------------------------------------------------------- */
+
+.action-buttons {
+    margin-top: 30px;
+    text-align: right; 
+}
+
+.submit-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    margin-left: 10px; 
+}
+
+.submit-btn-green {
+    background-color: var(--success-color); 
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.submit-btn-green:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+
+.submit-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* *** 6. Modal Styling (Logout-style: Icon, Red/Blue Buttons) *** */
+/* ----------------------------------------------------------------- */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    align-items: center; 
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--card-bg); /* สีขาว/เทาเข้ม */
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px; 
+    text-align: center;
+    box-shadow: var(--shadow-light); /* เงาตามธีม */
+}
+
+/* 1. สไตล์สำหรับไอคอนตกใจขนาดใหญ่ (ใช้สำหรับ Logout) */
+.modal-title.icon-only {
+    display: block; 
+    text-align: center;
+    margin-bottom: 5px; 
+    border-bottom: none; 
+    padding-bottom: 0;
+}
+
+.modal-title.icon-only i {
+    color: var(--modal-cancel-red); /* ใช้สีแดงของ Danger */
+    font-size: 3.5rem; 
+    margin: 0;
+}
+
+/* สไตล์สำหรับข้อความ "ออกจากระบบ" (แยกจากไอคอน) */
+.modal-title-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark); 
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    margin-bottom: 25px; 
+    font-size: 1.05rem;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px; 
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
+    flex: 1; 
+    max-width: 150px;
+}
+
+/* ปุ่ม "ยกเลิก" (สีแดงตามภาพ) */
+.cancel-btn-red {
+    background-color: var(--modal-cancel-red); 
+    color: var(--text-light); 
+}
+.cancel-btn-red:hover {
+    background-color: #a71d2a;
+    transform: translateY(-1px);
+}
+
+/* ปุ่ม "ยืนยัน" (สีน้ำเงินตามภาพ) */
+.confirm-btn-blue {
+    background-color: var(--modal-confirm-blue); 
+    color: var(--text-light); 
+}
+.confirm-btn-blue:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 7. Responsive Design --- */
+/* ----------------------------------------------------------------- */
+
+/* Tablet & Smaller Desktop (Max-width 992px) */
+@media (max-width: 992px) {
+    /* Sidebar */
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar .logo img {
+        max-width: 50px;
+    }
+    .sidebar .menu-item a {
+        padding: 15px 10px;
+        justify-content: center;
+    }
+    .sidebar .menu-item a i {
+        margin: 0;
+    }
+    .main-content {
+        margin-left: 80px;
+        padding: 20px;
+    }
+    
+    /* Form Layout - เปลี่ยน 3 คอลัมน์เป็น 2 คอลัมน์ */
+    .form-row.three-col {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    /* 2 คอลัมน์ยังคงเป็น 2 คอลัมน์ */
+    .form-row.two-col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile (Max-width 600px) */
+@media (max-width: 600px) {
+    /* Sidebar แสดงเป็นแนวนอนด้านบน */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--sidebar-border);
+    }
+    .sidebar .logo {
+        display: none; 
+    }
+    .sidebar .menu {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto; 
+        padding: 0;
+        justify-content: flex-start;
+    }
+    .sidebar .menu-item {
+        flex: 0 0 auto;
+        margin: 0 5px;
+        border-radius: 0;
+    }
+    .sidebar .menu-item a {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    .main-content {
+        margin-left: 0;
+        padding: 20px 10px;
+        width: 100%;
+    }
+    .main-content h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Form Layout - เรียงเป็นแนวดิ่ง 1 คอลัมน์ทั้งหมด */
+    .form-row,
+    .form-row.three-col,
+    .form-row.two-col {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+    
+    .form-group.full-width {
+        grid-column: unset; 
+    }
+    
+    .action-buttons {
+        display: flex;
+        flex-direction: column-reverse; 
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .modal-btn {
+        max-width: 100%;
+    }
+}

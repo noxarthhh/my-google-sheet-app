@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บันทึกผลการอบรม</title>
+    <link rel="stylesheet" href="save.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <a href="index.html"><img id="header-logo" src="image/67.png" alt="โลโก้ระบบ"></a>
+    </div> 
+    <ul class="menu">
+        <li class="menu-item"><a href="index.html"><i class="fas fa-home"></i> หน้าแรก</a></li>
+        <li class="menu-item"><a href="profile.html"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
+        <li class="menu-item active"><a href="save.html"><i class="fas fa-file-alt"></i> บันทึกผลการอบรม</a></li>
+        <li class="menu-item"><a href="reward.html"><i class="fas fa-medal"></i> บันทึกรางวัล</a></li>
+        <li class="menu-item"><a href="dashboard.html"><i class="fas fa-chart-bar"></i> รายงาน</a></li>
+        <li class="menu-item"><a href="setting.html"><i class="fas fa-cog"></i> การตั้งค่า</a></li>
+        <li class="menu-item"><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a></li>
+    </ul>
+</div>
+    
+<div class="main-content">
+    <h1><i class="fas fa-file-alt"></i> รายละเอียดการบันทึกผลการอบรม</h1>
+    
+    <div class="profile-container">
+        <form id="trainingForm"> 
+            
+            <div class="form-group">
+                <label for="course-name">ชื่อหลักสูตร:</label>
+                <input type="text" id="course-name" name="course_name" placeholder="กรุณากรอกชื่อหลักสูตร" class="styled-input" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="start-date">วันที่เข้าอบรม:</label>
+                    <input type="date" id="start-date" name="date_start" class="styled-input styled-date-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="end-date">วันที่สิ้นสุดการอบรม:</label>
+                    <input type="date" id="end-date" name="date_end" class="styled-input styled-date-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="hours">จำนวนชั่วโมง:</label>
+                    <input type="number" id="hours" name="hours" placeholder="จำนวนชั่วโมง" class="styled-input" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="organizer">หน่วยงานที่จัดอบรม:</label>
+                <input type="text" id="organizer" name="organizer" placeholder="กรุณากรอกหน่วยงานที่จัดอบรม" class="styled-input" required>
+            </div>
+
+            <div class="form-group">
+                <label for="report-summary">รายงานผลการอบรม (สรุปสาระสำคัญ):</label>
+                <textarea id="report-summary" name="summary" rows="4" placeholder="กรุณากรอกรายงานผลการอบรมโดยย่อ" class="styled-input"></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="benefit-self">ประโยชน์ต่อตนเอง:</label>
+                    <input type="text" id="benefit-self" name="benefit_self" placeholder="ประโยชน์ต่อตนเอง" class="styled-input">
+                </div>
+                <div class="form-group">
+                    <label for="benefit-org">ประโยชน์ต่อองค์กร:</label>
+                    <input type="text" id="benefit-org" name="benefit_org" placeholder="ประโยชน์ต่อองค์กร" class="styled-input">
+                </div>
+                <div class="form-group">
+                    <label for="benefit-student">ประโยชน์ต่อนักเรียน:</label>
+                    <input type="text" id="benefit-student" name="benefit_student" placeholder="ประโยชน์ต่อนักเรียน" class="styled-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="certificate-file">แนบเกียรติบัตร (หลักฐานการอบรม):</label>
+                <input type="file" id="certificate-file" name="certificate_file" class="styled-file-input" accept="image/jpeg, image/png, application/pdf"> 
+                <small class="file-help-text">รองรับไฟล์ JPG, PNG, PDF ไม่เกิน 2MB</small>
+            </div>
+        
+            <div class="action-buttons">
+                <button type="button" class="submit-btn" id="saveBtn" onclick="submitTrainingData()">บันทึกข้อมูล</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+     <div class="modal-content">
+          <h2 class="modal-title icon-only"><i class="fas fa-exclamation-triangle"></i></h2> 
+          <h2 class="modal-title-text">ออกจากระบบ</h2>
+          <p>คุณยืนยันที่จะออกจากระบบหรือไม่?</p>
+          <div class="modal-actions">
+                <button class="modal-btn cancel-btn-red" onclick="hideLogoutModal()">ยกเลิก</button>
+                <button class="modal-btn confirm-btn-blue" onclick="confirmLogout()">ยืนยัน</button>
+          </div>
+     </div>
+</div>
+
+<script>
+// ******************************************************
+// 0. ตั้งค่า URL (🔴 ต้องเปลี่ยน URL ตรงนี้ทุกครั้งที่ Deploy ใหม่ 🔴)
+// ******************************************************
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdJKqG0kUFgAJ13OiWfkCCen0XEFVpivgbBoRhiFPm7b2ofO0VdKwAoQnkAMVAz-ft/exec';
+
+// 1. Security Check
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') window.location.replace('login.html');
+}
+
+// 2. Active Menu
+function setActiveMenuItem() {
+    const currentPath = window.location.pathname.split('/').pop();
+    const menuItems = document.querySelectorAll('.menu-item a');
+    menuItems.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+            link.closest('.menu-item').classList.add('active');
+        } else {
+            link.closest('.menu-item').classList.remove('active');
+        }
+    });
+}
+
+// 3. Logout Modal
+const logoutModal = document.getElementById('logoutModal');
+const logoutButton = document.getElementById('logout-btn');
+function showLogoutModal(e) { if (e) e.preventDefault(); if(logoutModal) logoutModal.classList.add('show'); }
+function hideLogoutModal() { if(logoutModal) logoutModal.classList.remove('show'); }
+function confirmLogout() {
+    hideLogoutModal();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    window.location.replace('login.html');
+}
+if (logoutButton) logoutButton.addEventListener('click', showLogoutModal);
+if (logoutModal) logoutModal.addEventListener('click', function(e) { if (e.target === this) hideLogoutModal(); });
+
+
+// ******************************************************
+// 4. Logic สำหรับ Form (ส่งแบบ Form Data URLSearchParams)
+// ******************************************************
+function submitTrainingData() {
+    const submitBtn = document.getElementById('saveBtn');
+    const originalText = submitBtn.textContent;
+    const form = document.getElementById('trainingForm');
+    
+    if (!form.checkValidity()) {
+         alert('⚠️ กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
+         form.reportValidity();
+         return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+    
+    const data = new URLSearchParams();
+    data.append('action', 'saveTraining'); 
+    data.append('timestamp', new Date().toLocaleString('th-TH'));
+
+    const formData = new FormData(form);
+    for (const [key, value] of formData.entries()) {
+        if (key !== 'certificate_file') {
+            data.append(key, value);
+        }
+    }
+
+    const fileInput = document.getElementById('certificate-file');
+    const file = fileInput.files[0];
+
+    if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+            alert('❌ ขนาดไฟล์เกิน 2MB');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64 = e.target.result.split(',')[1];
+            data.append('fileName', file.name);
+            data.append('mimeType', file.type);
+            data.append('fileData', base64);
+            sendToGoogleScript(data, submitBtn, originalText);
+        };
+        reader.onerror = function() {
+            alert('❌ อ่านไฟล์ล้มเหลว');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        sendToGoogleScript(data, submitBtn, originalText);
+    }
+}
+
+function sendToGoogleScript(data, submitBtn, originalText) {
+    fetch(WEB_APP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data 
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.result === 'success') {
+            alert('✅ บันทึกข้อมูลเรียบร้อยแล้ว!');
+            document.getElementById('trainingForm').reset();
+        } else {
+            alert('❌ เกิดข้อผิดพลาด: ' + result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('🚨 เชื่อมต่อเซิร์ฟเวอร์ไม่ได้: ' + error.message);
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    });
+}
+
+// 5. Theme Settings (ย้ายมาไว้ล่างสุด กัน Error)
+function toggleTheme(theme) {
+    const body = document.body;
+    body.classList.remove('light-mode', 'dark-mode'); 
+    if (theme === 'dark') body.classList.add('dark-mode');
+}
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light'; 
+    toggleTheme(savedTheme);
+}
+
+// 6. Initial Load
+document.addEventListener('DOMContentLoaded', function() {
+    checkLoginStatus(); 
+    setActiveMenuItem();
+    loadTheme(); // เรียกใช้ Theme ตรงนี้แทน ปลอดภัยกว่า
+});
+</script>
+</body>
+</html>

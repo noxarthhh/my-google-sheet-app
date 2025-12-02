@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การตั้งค่าระบบ</title>
+    
+    <link rel="stylesheet" href="setting.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        /* สไตล์พิเศษที่ยังอยู่ใน HTML */
+        /* ถ้าต้องการใช้ ควรตรวจสอบว่ามันไม่ได้ซ้ำกับ setting.css */
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img id="header-logo" src="image/67.png" alt="โลโก้ระบบ"> 
+        </a>
+    </div> 
+    
+    <ul class="menu">
+        <li class="menu-item"><a href="index.html"><i class="fas fa-home"></i> หน้าแรก</a></li>
+        <li class="menu-item"><a href="profile.html"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</a></li>
+        <li class="menu-item"><a href="save.html"><i class="fas fa-file-alt"></i> บันทึกผลการอบรม</a></li>
+        <li class="menu-item"><a href="reward.html"><i class="fas fa-medal"></i> บันทึกรางวัล</a></li>
+        <li class="menu-item"><a href="dashboard.html"><i class="fas fa-chart-bar"></i> รายงาน</a></li>
+        <li class="menu-item active"><a href="setting.html"><i class="fas fa-cog"></i> การตั้งค่า</a></li>
+        <li class="menu-item"><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="dashboard-header">
+        <h1><i class="fas fa-cog"></i> การตั้งค่าระบบ</h1>
+        <button id="theme-toggle" class="btn-theme-toggle" title="สลับโหมด">
+            <i class="fas fa-sun" id="theme-icon"></i> 
+        </button>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <h4 class="card-title"><i class="fas fa-user-lock"></i> การตั้งค่าบัญชี</h4>
+                
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">🔑 เปลี่ยนรหัสผ่าน</label>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">เพื่อความปลอดภัย โปรดเปลี่ยนรหัสผ่านของคุณเป็นระยะ</p>
+                    <button class="btn-setting-action" type="button"><i class="fas fa-key"></i> เปลี่ยนรหัสผ่าน</button>
+                </div>
+                
+                <hr style="margin: 20px 0; border-color: var(--border-color);">
+
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">🌐 จัดการบัญชีที่เชื่อมต่อ (Google Sheet)</label>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">สถานะ: <span style="color: var(--success-color); font-weight: 600;">เชื่อมต่อแล้ว</span></p>
+                    <button class="btn-setting-action" type="button" style="background-color: var(--danger-color);"><i class="fas fa-unlink"></i> ยกเลิกการเชื่อมต่อ</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100">
+                <h4 class="card-title"><i class="fas fa-bell"></i> การแจ้งเตือน</h4>
+                
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">📢 ช่องทางแจ้งเตือน</label>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">เลือกช่องทางหลักที่คุณต้องการรับการแจ้งเตือน</p>
+                    <select class="setting-select">
+                        <option>ในระบบเท่านั้น</option>
+                        <option selected>อีเมลและในระบบ</option>
+                        <option>LINE และในระบบ</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">⏳ ความถี่ในการแจ้งเตือน</label>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">เลือกความถี่ที่ระบบจะสรุปข้อมูลและแจ้งเตือน</p>
+                    <select class="setting-select">
+                        <option>แจ้งเตือนทันที</option>
+                        <option selected>สรุปรายสัปดาห์</option>
+                        <option>สรุปรายเดือน</option>
+                    </select>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <h4 class="card-title"><i class="fas fa-cogs"></i> การตั้งค่าทั่วไป</h4>
+                
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">เลือกธีมของระบบ</label>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">ปรับเปลี่ยนรูปแบบการแสดงผลหน้าจอ</p>
+                    <select class="setting-select" id="theme-selector-dropdown">
+                        <option value="light">สีสว่าง (Light Mode)</option>
+                        <option value="dark">สีเข้ม (Dark Mode)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">🔠 ขนาดตัวอักษร</label>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">ปรับขนาดตัวอักษรเพื่อให้อ่านง่ายขึ้น</p>
+                    <select class="setting-select">
+                        <option value="normal" selected>ปกติ (Normal)</option>
+                        <option value="large">ใหญ่ (Large)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">📅 รูปแบบวันที่</label>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">รูปแบบที่ใช้ในการแสดงข้อมูลวันที่</p>
+                    <select class="setting-select">
+                        <option value="dd-mm-yyyy" selected>DD/MM/YYYY (25/12/2568)</option>
+                        <option value="yyyy-mm-dd">YYYY-MM-DD (2568-12-25)</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100">
+                <h4 class="card-title"><i class="fas fa-database"></i> การจัดการข้อมูล</h4>
+                
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500;">⬇️ ส่งออกข้อมูล (Export Data)</label>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">ดาวน์โหลดข้อมูลบันทึกทั้งหมดของคุณในรูปแบบ CSV</p>
+                    <button class="btn-setting-action" type="button"><i class="fas fa-download"></i> ดาวน์โหลดข้อมูล</button>
+                </div>
+
+                <hr style="margin: 20px 0; border-color: var(--border-color);">
+
+                <div class="setting-group">
+                    <label class="d-block mb-2" style="font-weight: 500; color: var(--danger-color);">⚠️ ลบบัญชีผู้ใช้</label>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem;">การดำเนินการนี้ไม่สามารถยกเลิกได้ ข้อมูลทั้งหมดจะถูกลบออกจากระบบอย่างถาวร</p>
+                    <button class="btn-danger-setting" type="button"><i class="fas fa-trash"></i> ลบบัญชีผู้ใช้</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-title icon-only"><i class="fas fa-exclamation-triangle"></i></h2> 
+        <h2 class="modal-title-text">ออกจากระบบ</h2>
+        
+        <p>คุณยืนยันที่จะออกจากระบบหรือไม่?</p>
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn-red" onclick="hideLogoutModal()">ยกเลิก</button>
+            <button class="modal-btn confirm-btn-blue" onclick="confirmLogout()">ยืนยัน</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ******************************************************
+// 1. การจัดการ Theme (แก้ไขให้สอดคล้องกับ CSS ที่ใช้แค่ dark-mode)
+// ******************************************************
+const themeToggleButton = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const themeDropdown = document.getElementById('theme-selector-dropdown'); 
+
+function toggleTheme(theme) {
+    const body = document.body;
+    body.classList.remove('dark-mode'); 
+
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark'); 
+        themeIcon.className = 'fas fa-moon'; 
+        if (themeDropdown) themeDropdown.value = 'dark';
+    } else {
+        localStorage.setItem('theme', 'light');
+        themeIcon.className = 'fas fa-sun'; 
+        if (themeDropdown) themeDropdown.value = 'light';
+    }
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light'; 
+    toggleTheme(savedTheme); 
+}
+
+// คลิกปุ่มใน Header
+if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        toggleTheme(newTheme);
+    });
+}
+
+// เลือกจาก Dropdown ในหน้า Setting
+if (themeDropdown) {
+    themeDropdown.addEventListener('change', (e) => {
+        toggleTheme(e.target.value);
+    });
+}
+
+// ******************************************************
+// 4. การจัดการ Logout Confirmation Modal
+// ******************************************************
+const logoutModal = document.getElementById('logoutModal');
+const logoutButton = document.getElementById('logout-btn');
+
+function showLogoutModal(e) {
+    if (e) e.preventDefault();
+    if(logoutModal) logoutModal.classList.add('show');
+}
+
+function hideLogoutModal() {
+    if(logoutModal) logoutModal.classList.remove('show');
+}
+
+function confirmLogout() {
+    hideLogoutModal();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    window.location.replace('login.html');
+}
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', showLogoutModal);
+}
+
+if(logoutModal) {
+    logoutModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideLogoutModal();
+        }
+    });
+}
+
+// ******************************************************
+// 3. การเรียกใช้ฟังก์ชันเริ่มต้นเมื่อโหลดหน้า
+// ******************************************************
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme(); 
+});
+
+
+// ******************************************************
+// 4. Logic สำหรับ Form (ส่งข้อมูลและไฟล์ Base64) 
+// ******************************************************
+function submitTrainingData() {
+    // ... logic for training form submission ...
+}
+
+function sendData(data, submitBtn, originalText) {
+    // ... logic for sending data to Apps Script ...
+    alert("จำลองการส่งข้อมูล: ข้อมูลถูกเตรียมพร้อมแล้ว");
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+}
+
+</script>
+</body>
+</html>

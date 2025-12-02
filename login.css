@@ -1,0 +1,204 @@
+/*
+ * =========================================================
+ * ธีมหลัก: Modern, Clean & Dual-Mode (Light/Dark)
+ * สำหรับหน้า: Login.html
+ * =========================================================
+ */
+
+/* --- 0. Global Variables (Light Mode) --- */
+:root {
+    --primary-color: #007bff; /* น้ำเงินหลัก */
+    --primary-hover: #0056b3; 
+    --text-dark: #333;
+    --text-light: #f1f1f1;
+    --background-light: #f4f7f9; /* พื้นหลังหลัก */
+    --card-bg: #ffffff; 
+    --input-bg: #f8f9fa; /* พื้นหลัง Input */
+    --input-border: #ced4da; /* ขอบ Input */
+    --shadow-main: 0 10px 30px rgba(0, 0, 0, 0.1); /* เงาหลักของ Card */
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* --- 0. Global Variables (Dark Mode Override) --- */
+/* หากคุณต้องการให้หน้า Login รองรับการสลับธีมเช่นเดียวกับหน้า Dashboard */
+body.dark-mode {
+    --text-dark: #f8f9fa;
+    --background-light: #121212;
+    --card-bg: #1e1e1e;
+    --input-bg: #2d2d2d; 
+    --input-border: #495057;
+    --shadow-main: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.5);
+    --primary-color: #4da6ff;
+    --primary-hover: #1e88e5;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 1. Base Layout --- */
+/* ----------------------------------------------------------------- */
+
+.login-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-main);
+    text-align: center;
+    transition: box-shadow 0.3s;
+    border: 1px solid var(--input-border);
+}
+
+.login-box:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.login-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 25px;
+}
+
+.login-box h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 2. Form & Inputs --- */
+/* ----------------------------------------------------------------- */
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group i {
+    color: var(--primary-color);
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+.input-group input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--text-dark);
+    padding: 5px 0;
+}
+
+/* Focus State */
+.input-group:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+}
+
+
+/* ----------------------------------------------------------------- */
+/* --- 3. Buttons & Links --- */
+/* ----------------------------------------------------------------- */
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-light);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.login-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6);
+}
+
+/* Links (สมัคร/ลืมรหัสผ่าน) */
+.register, .forgot-password {
+    display: block;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    transition: color 0.2s;
+}
+
+.register {
+    color: var(--primary-color);
+}
+
+.forgot-password {
+    color: var(--text-muted, #6c757d);
+    margin-top: 5px;
+}
+
+.register:hover, .forgot-password:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* Dark Mode Link Text Adjustment */
+body.dark-mode .register {
+    color: var(--primary-color);
+}
+
+body.dark-mode .forgot-password {
+    color: var(--text-muted, #adb5bd);
+}
+
+/* ----------------------------------------------------------------- */
+/* --- 4. Responsive Design --- */
+/* ----------------------------------------------------------------- */
+
+@media (max-width: 500px) {
+    .login-box {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+    .login-box h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+    .login-logo {
+        max-width: 130px;
+    }
+    .login-btn {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+}
